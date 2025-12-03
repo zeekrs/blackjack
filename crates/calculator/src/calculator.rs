@@ -1,7 +1,9 @@
 //! Blackjack 计算器核心逻辑
 
 use crate::rules::GameRules;
-use crate::types::{Action, GameResult, Hand};
+use crate::types::{CardCounts, TableEVResult};
+use crate::probability_calculator::ProbabilityCalculator;
+use crate::ev_calculator::calculate_ev;
 
 /// Blackjack 计算器
 pub struct Calculator {
@@ -21,22 +23,24 @@ impl Calculator {
         }
     }
 
-    /// 计算期望值
-    pub fn calculate_ev(&self, player_hand: &Hand, dealer_up_card: &Hand) -> f64 {
-        // TODO: 实现期望值计算
-        0.0
-    }
-
-    /// 计算最佳动作
-    pub fn optimal_action(&self, player_hand: &Hand, dealer_up_card: &Hand) -> Action {
-        // TODO: 实现最佳动作计算
-        Action::Stand
-    }
-
-    /// 计算游戏结果
-    pub fn calculate_result(&self, player_hand: &Hand, dealer_hand: &Hand) -> GameResult {
-        // TODO: 实现结果计算
-        GameResult::Push
+    /// 计算上桌 EV（是否上桌的期望值）
+    /// 
+    /// 综合考虑所有可能的游戏情况：
+    /// - 普通投注（Hit/Stand）
+    /// - 加倍投注（Double Down）
+    /// - 投降（Surrender）
+    /// 
+    /// 玩家按照基础策略进行游戏，最终返回一个综合的 EV 值。
+    /// 
+    /// # Arguments
+    /// * `deck` - 当前剩余牌组信息
+    /// 
+    /// # Returns
+    /// `TableEVResult` 包含期望值和各种概率
+    pub fn calculate_table_ev(&self, deck: &CardCounts) -> TableEVResult {
+        let mut calculator = ProbabilityCalculator::new(self.rules.clone());
+        let outcome = calculator.calculate_table_ev(deck);
+        calculate_ev(&outcome, &self.rules)
     }
 }
 
@@ -44,5 +48,24 @@ impl Default for Calculator {
     fn default() -> Self {
         Self::with_default_rules()
     }
+}
+
+/// 创建完整 8 副牌
+pub fn create_full_8_deck() -> CardCounts {
+    let mut deck = CardCounts::new();
+    
+    // 8副牌，每副52张
+    for _ in 0..8 {
+        // A
+        *deck.entry(crate::types::Card::Ace).or_insert(0) += 4;
+        // 2-10
+        for n in 2..=10 {
+            *deck.entry(crate::types::Card::Number(n)).or_insert(0) += 4;
+        }
+        // J, Q, K
+        *deck.entry(crate::types::Card::Face).or_insert(0) += 12; // 4张 * 3种
+    }
+    
+    deck
 }
 
