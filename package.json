@@ -1,0 +1,29 @@
+{
+	"name": "blackjack",
+	"private": true,
+	"scripts": {
+		"build": "turbo run build",
+		"clean": "turbo run clean",
+		"dev": "turbo run dev",
+		"format": "biome format --write",
+		"lint": "turbo run lint",
+		"test": "turbo run test",
+		"check-types": "turbo run check-types",
+		"commit": "czg",
+		"prepare": "lefthook install"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.0.5",
+		"@commitlint/cli": "^19.8.1",
+		"@commitlint/config-conventional": "^19.8.1",
+		"@workspace/biome-config": "workspace:*",
+		"czg": "^1.11.0",
+		"lefthook": "^1.10.1",
+		"tsx": "^4.20.5",
+		"turbo": "^2.5.2"
+	},
+	"packageManager": "pnpm@8.15.6",
+	"engines": {
+		"node": ">=18"
+	}
+}

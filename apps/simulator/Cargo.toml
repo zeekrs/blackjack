@@ -1,0 +1,45 @@
+[package]
+name = "simulator"
+version = "0.1.0"
+edition = "2021"
+description = "Blackjack 模拟投注系统"
+license = "MIT"
+
+[[bin]]
+name = "simulator"
+path = "src/main.rs"
+
+[dependencies]
+# 计算引擎 (workspace依赖)
+calculator = { path = "../../crates/calculator" }
+
+# 并发和异步
+rayon = "1.11.0"
+tokio = { version = "1.47.1", features = ["full"] }
+
+# 序列化
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.143"
+
+# 随机数生成
+rand = "0.9.2"
+rand_chacha = "0.9.0"
+
+# 命令行工具
+clap = { version = "4.5.46", features = ["derive"] }
+colored = "3.0.0"
+indicatif = "0.18.0"
+inquire = "0.7.5"
+
+# 其他工具
+anyhow = "1.0.99"
+thiserror = "2.0.16"
+chrono = { version = "0.4.41", features = ["serde"] }
+env_logger = "0.11.8"
+num_cpus = "1.17.0"
+ctrlc = "3.4.4"
+config = "0.15.15"
+
+# Excel导出
+rust_xlsxwriter = "0.90.0"
+

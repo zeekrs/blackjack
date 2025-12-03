@@ -1,0 +1,7 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "crates/calculator"
+  - "crates/calculator/calculator-web"
+  - "crates/calculator/calculator-node"
+

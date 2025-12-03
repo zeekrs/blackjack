@@ -1,0 +1,12 @@
+{
+	"name": "@workspace/biome-config",
+	"version": "0.0.0",
+	"type": "module",
+	"private": true,
+	"exports": {
+		"./base": "./base.json"
+	},
+	"devDependencies": {
+		"typescript": "^5.8.2"
+	}
+}

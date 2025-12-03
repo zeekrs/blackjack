@@ -1,0 +1,8 @@
+[default.extend-words]
+ede = "ede"
+Inferrable = "Inferrable"
+PN = "PN"
+
+[files]
+extend-exclude = ["CHANGELOG.md","docs/*","deploy/*","**/sources/*","packages/database/src/seed.ts","crates/calculator/calculator-web/*","crates/calculator/calculator-node/*","crates/calculator-web/*","*.sql"]
+

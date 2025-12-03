@@ -1,0 +1,20 @@
+[pre-commit]
+parallel = false
+
+[pre-commit.commands.biome-fmt]
+glob = "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+run = "bunx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}"
+stage_fixed = true
+
+
+# catching spelling mistakes
+# https://github.com/crate-ci/typos
+[pre-commit.commands.typos]
+glob = "*"
+run = "typos"
+
+
+# lint commit message
+[commit-msg.commands.commitlint]
+run = "bunx commitlint --edit {1}"
+

@@ -1,0 +1,45 @@
+{
+	"$schema": "https://turborepo.com/schema.json",
+	"ui": "tui",
+	"tasks": {
+		"build": {
+			"inputs": ["$TURBO_DEFAULT$", ".env*"],
+			"dependsOn": ["^build"],
+			"outputs": [
+				"build/**",
+				".vercel/**",
+				"dist/**",
+				".next/**",
+				"!.next/cache/**",
+				"pkg/**",
+				"calculator-web/**",
+				"calculator-node/**"
+			]
+		},
+		"build:wasm": {
+			"inputs": ["src/**/*", "Cargo.toml", "build_wasm.sh"],
+			"outputs": ["pkg/**"],
+			"cache": false
+		},
+		"clean": {
+			"inputs": [],
+			"outputs": [],
+			"cache": false
+		},
+		"test": {
+			"outputs": ["coverage/**"],
+			"dependsOn": []
+		},
+		"lint": {
+			"dependsOn": ["^build", "^lint"]
+		},
+		"check-types": {
+			"dependsOn": ["^build", "^check-types"]
+		},
+		"dev": {
+			"dependsOn": ["^build"],
+			"cache": false,
+			"persistent": true
+		}
+	}
+}

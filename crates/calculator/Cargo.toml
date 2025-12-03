@@ -1,0 +1,30 @@
+[package]
+name = "calculator"
+version = "0.1.0"
+edition = "2021"
+description = "高性能 Blackjack 概率计算器"
+license = "MIT"
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+once_cell = { workspace = true }
+wasm-bindgen = "0.2.100"
+js-sys = "0.3.77"
+web-sys = { version = "0.3.77", features = ["console"] }
+serde-wasm-bindgen = "0.6.5"
+console_error_panic_hook = "0.1.7"
+
+[dev-dependencies]
+criterion = { workspace = true }
+proptest = { workspace = true }
+
+# Profile 配置已在根目录 Cargo.toml 中设置
+
